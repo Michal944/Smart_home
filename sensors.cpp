@@ -2,7 +2,6 @@
 #include "sensors.h"
 #include <cassert>
 #include <exception>
-#include <cstdlib>
 #include <ctime>
 
 using namespace std;
@@ -10,17 +9,17 @@ using namespace std;
 //Time
 int Time::TIME_START=time(NULL);
 unsigned long int Time::TIME=0;
-void f_time()
+void Time::f_time()
 {
 		TIME=time(NULL)-TIME_START;
 }
-void view_time_start()
+void Time::view_time_start()
 {
 		cout<<"Time from start: "<<TIME<<endl;
 }
 
 //POWER
-void Power::f_power()=0;
+//void Power::f_power()=0;
 Power::Power(float V, float C)
 		: VOLATAGE(V)
 		, CURRENT(C)
@@ -30,22 +29,28 @@ void Power::view_power()
 		cout<<"VOLATAGE: "<<VOLATAGE<<"V"<<endl;
 		cout<<"CURRENT:  "<<CURRENT<<"A"<<endl;
 }
+Power::~Power()
+{}
 
 //Termometr
-srand(time(NULL));
 Termometr::Termometr(float T, float Vv, float Cc) 
 			: TEMP(T)	
 		 	, Power(Vv, Cc)
 			{}
 
 void Termometr::f_temp()
-{
-		TEMP=(rand()%10)+20;
+{	if(Time::TIME%30==0)
+		TEMP+=0.1;
+	else if(TEMP==32)
+		TEMP=20;
+
 }
 void Termometr::view_temp()
 {
 		cout<<"TEMP: "<<TEMP<<" *C"<<endl;
 }
+Termometr::~Termometr()
+{}
 
 //Light_sensor 
 Light_sensor::Light_sensor(short L, float Vv, float Cc) 
@@ -62,6 +67,8 @@ void Light_sensor::view_light()
 {
 		cout<<"LIGHT: "<<LIGHT_INTENSITY<<endl;
 }
+Light_sensor::~Light_sensor()
+{}
 
 //Anemometr
 Anemometr::Anemometr(float W, float Vv, float Cc)
@@ -70,7 +77,7 @@ Anemometr::Anemometr(float W, float Vv, float Cc)
 {}
 void Anemometr::f_wind_speed()
 {
-	if(TIME%5==0)
+	if(Time::TIME%5==0)
 		WIND_SPEED+=0.9;
 	else
 		WIND_SPEED-=0.2;
@@ -80,6 +87,8 @@ void Anemometr::view_wind()
 {
 		cout<<"Wind speed: "<<WIND_SPEED<<" m/s"<<endl;
 }
+Anemometr::~Anemometr()
+{}
 
 //Sensor_move
 Sensor_move::Sensor_move(bool M, float Vv, float Cc)
@@ -89,7 +98,7 @@ Sensor_move::Sensor_move(bool M, float Vv, float Cc)
 
 void Sensor_move::f_move()
 {
-	if(TIME%1200==0)
+	if(Time::TIME%1200==0)
 		MOVE=true;
 	else
 		MOVE=false;
@@ -99,5 +108,6 @@ void Sensor_move::view_move()
 	if(MOVE==true)
 		cout<<"Wykryto ruch!"<<endl;
 }
-
+Sensor_move::~Sensor_move()
+{}
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #ifndef _SENSORS_H
 #define _SENSORS_H
 
@@ -14,7 +15,7 @@ class Power
 		float VOLATAGE;
 		float CURRENT;
 		void view_power();
-		virtual void f_power();
+	//	virtual void f_power();
 		Power(float V=0, float C=0);
 		virtual ~Power();		
 };
@@ -27,6 +28,7 @@ class Termometr : virtual public Power
 		void view_temp();
 		Termometr(float T=20, float Vv=0, float Cc=0);
 		virtual ~Termometr();
+		void f_power();
 };
 
 //class Barometr
@@ -60,7 +62,6 @@ class Sensor_move : virtual public Power
 		Sensor_move(bool M=false, float Vv=0, float Cc=0);
 		virtual ~Sensor_move();
 };
-
 
 
 
