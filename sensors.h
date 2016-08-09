@@ -63,9 +63,14 @@ class Sensor_move : virtual public Power
 		virtual ~Sensor_move();
 };
 
+class Wetness_sensor : virtual public Power
+{
+		unsigned short WETNESS;
+	public:
+		void f_wetness();
+		void view_wetness();
+		Wetness_sensor(unsigned short W=20, float Vv=0, float Cc=0);
+		virtual ~Wetness_sensor();
 
-
-
-
-
+	
 #endif

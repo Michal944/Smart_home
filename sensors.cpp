@@ -95,7 +95,6 @@ Sensor_move::Sensor_move(bool M, float Vv, float Cc)
 		:	MOVE(M)
 		,	Power(Vv,Cc)
 {}
-
 void Sensor_move::f_move()
 {
 	if(Time::TIME%1200==0)
@@ -110,4 +109,25 @@ void Sensor_move::view_move()
 }
 Sensor_move::~Sensor_move()
 {}
+
+//Wetness_sensor
+Wetness_sensor::Wetness_sensor(unsigned short W, float Vv, float Cc)
+		: 	WETNESS(W)
+		,	Power(Vv, Cc)
+{}
+Wetness_sensor::~Wetness_sensor(){}
+void Wetness_sensor::f_wetness()
+{	if(Time::TIME%36000==0)
+		WETNESS=88;
+	else if(Time::TIME%40000==0)
+		WETNESS=45%;
+}
+void Wetness_sensor::view_wetness()
+{
+		cout<<"Wetness: "<<WETNESS<<"%"<<endl;
+}
+
+
+
+
 
