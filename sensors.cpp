@@ -14,7 +14,7 @@ void Time::f_time()
 		TIME=time(NULL)-TIME_START;
 }
 void Time::view_time_start()
-{
+{	if(TIME%2==0)
 		cout<<"Time from start: "<<TIME<<endl;
 }
 
