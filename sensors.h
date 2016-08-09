@@ -1,6 +1,6 @@
-#include <iostream>
 #ifndef _SENSORS_H
 #define _SENSORS_H
+#include <iostream>
 
 class Time
 { 		static int TIME_START;
@@ -71,6 +71,6 @@ class Wetness_sensor : virtual public Power
 		void view_wetness();
 		Wetness_sensor(unsigned short W=20, float Vv=0, float Cc=0);
 		virtual ~Wetness_sensor();
-
+};
 	
 #endif

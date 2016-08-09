@@ -120,7 +120,7 @@ void Wetness_sensor::f_wetness()
 {	if(Time::TIME%36000==0)
 		WETNESS=88;
 	else if(Time::TIME%40000==0)
-		WETNESS=45%;
+		WETNESS=45;
 }
 void Wetness_sensor::view_wetness()
 {
