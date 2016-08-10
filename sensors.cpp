@@ -11,10 +11,11 @@ int Time::TIME_START=time(NULL);
 unsigned long int Time::TIME=0;
 void Time::f_time()
 {
+	
 		TIME=time(NULL)-TIME_START;
 }
 void Time::view_time_start()
-{	if(TIME%2==0)
+{	
 		cout<<"Time from start: "<<TIME<<endl;
 }
 
@@ -38,14 +39,14 @@ Termometr::Termometr(float T, float Vv, float Cc)
 		 	, Power(Vv, Cc)
 			{}
 
-void Termometr::f_temp()
+void Termometr::f()
 {	if(Time::TIME%30==0)
 		TEMP+=0.1;
 	else if(TEMP==32)
 		TEMP=20;
 
 }
-void Termometr::view_temp()
+void Termometr::view()
 {
 		cout<<"TEMP: "<<TEMP<<" *C"<<endl;
 }
@@ -57,13 +58,13 @@ Light_sensor::Light_sensor(short L, float Vv, float Cc)
 			: LIGHT_INTENSITY(L)
 			, Power(Vv,Cc)
 {}
-void Light_sensor::f_light_intensity()
+void Light_sensor::f()
 {		if(Time::TIME%300==0)
 			LIGHT_INTENSITY+=1;
 		if(LIGHT_INTENSITY==100)
 			LIGHT_INTENSITY=40;
 }
-void Light_sensor::view_light()
+void Light_sensor::view()
 {
 		cout<<"LIGHT: "<<LIGHT_INTENSITY<<endl;
 }
@@ -75,15 +76,15 @@ Anemometr::Anemometr(float W, float Vv, float Cc)
 		:	WIND_SPEED(W)
 		,	Power(Vv,Cc)
 {}
-void Anemometr::f_wind_speed()
+void Anemometr::f()
 {
-	if(Time::TIME%5==0)
-		WIND_SPEED+=0.9;
+	if(Time::TIME%3==0)
+		WIND_SPEED+=0.3;
 	else
-		WIND_SPEED-=0.2;
+		WIND_SPEED-=0.1;
 }
 
-void Anemometr::view_wind()
+void Anemometr::view()
 {
 		cout<<"Wind speed: "<<WIND_SPEED<<" m/s"<<endl;
 }
@@ -95,14 +96,14 @@ Sensor_move::Sensor_move(bool M, float Vv, float Cc)
 		:	MOVE(M)
 		,	Power(Vv,Cc)
 {}
-void Sensor_move::f_move()
+void Sensor_move::f()
 {
 	if(Time::TIME%1200==0)
 		MOVE=true;
-	else
+	else if(Time::TIME%1600==0)
 		MOVE=false;
 }
-void Sensor_move::view_move()
+void Sensor_move::view()
 {	
 	if(MOVE==true)
 		cout<<"Wykryto ruch!"<<endl;
@@ -116,13 +117,13 @@ Wetness_sensor::Wetness_sensor(unsigned short W, float Vv, float Cc)
 		,	Power(Vv, Cc)
 {}
 Wetness_sensor::~Wetness_sensor(){}
-void Wetness_sensor::f_wetness()
+void Wetness_sensor::f()
 {	if(Time::TIME%36000==0)
 		WETNESS=88;
 	else if(Time::TIME%40000==0)
 		WETNESS=45;
 }
-void Wetness_sensor::view_wetness()
+void Wetness_sensor::view()
 {
 		cout<<"Wetness: "<<WETNESS<<"%"<<endl;
 }

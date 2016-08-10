@@ -2,6 +2,12 @@
 #define _SENSORS_H
 #include <iostream>
 
+class Interface
+{	public:
+		virtual	void view()=0;
+		virtual void f()=0;
+};
+
 class Time
 { 		static int TIME_START;
 	public:
@@ -20,12 +26,12 @@ class Power
 		virtual ~Power();		
 };
 
-class Termometr : virtual public Power 
+class Termometr : virtual public Power, virtual public Interface
 {
 		float TEMP;
 	public:
-		void f_temp();
-		void view_temp();
+		void f() override;
+		void view() override;
 		Termometr(float T=20, float Vv=0, float Cc=0);
 		virtual ~Termometr();
 		void f_power();
@@ -33,42 +39,42 @@ class Termometr : virtual public Power
 
 //class Barometr
 
-class Light_sensor : virtual public Power 
+class Light_sensor : virtual public Power, virtual public Interface 
 {
 		short LIGHT_INTENSITY;
 	public:
-		void f_light_intensity();
-		void view_light();
+		void f() override;
+		void view() override;
 		Light_sensor(short L=50, float Vv=0, float Cc=0);
 		virtual ~Light_sensor();
 };
 
-class Anemometr : virtual public Power
+class Anemometr : virtual public Power, virtual public Interface
 {
 		float  WIND_SPEED;
 	public:
-		void f_wind_speed();
-		void view_wind();
+		void f() override;
+		void view() override;
 		Anemometr(float W=5, float Vv=0, float Cc=0);
 		virtual ~Anemometr();
 };
 
-class Sensor_move : virtual public Power
+class Sensor_move : virtual public Power, virtual public Interface
 {
 		bool MOVE;
 	public:
-		void f_move();
-		void view_move();
+		void f() override;
+		void view() override;
 		Sensor_move(bool M=false, float Vv=0, float Cc=0);
 		virtual ~Sensor_move();
 };
 
-class Wetness_sensor : virtual public Power
+class Wetness_sensor : virtual public Power, virtual public Interface
 {
 		unsigned short WETNESS;
 	public:
-		void f_wetness();
-		void view_wetness();
+		void f() override;
+		void view() override;
 		Wetness_sensor(unsigned short W=20, float Vv=0, float Cc=0);
 		virtual ~Wetness_sensor();
 };
