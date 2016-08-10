@@ -28,8 +28,8 @@ class Power
 
 class Termometr : virtual public Power, virtual public Interface
 {
-		float TEMP;
 	public:
+		float TEMP;
 		void f() override;
 		void view() override;
 		Termometr(float T=20, float Vv=0, float Cc=0);
@@ -43,6 +43,7 @@ class Light_sensor : virtual public Power, virtual public Interface
 {
 		short LIGHT_INTENSITY;
 	public:
+		const short light_out_ret();
 		void f() override;
 		void view() override;
 		Light_sensor(short L=50, float Vv=0, float Cc=0);
@@ -71,8 +72,8 @@ class Sensor_move : virtual public Power, virtual public Interface
 
 class Wetness_sensor : virtual public Power, virtual public Interface
 {
-		unsigned short WETNESS;
 	public:
+		unsigned short WETNESS;
 		void f() override;
 		void view() override;
 		Wetness_sensor(unsigned short W=20, float Vv=0, float Cc=0);

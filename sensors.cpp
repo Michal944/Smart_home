@@ -59,11 +59,13 @@ Light_sensor::Light_sensor(short L, float Vv, float Cc)
 			, Power(Vv,Cc)
 {}
 void Light_sensor::f()
-{		if(Time::TIME%300==0)
-			LIGHT_INTENSITY+=1;
-		if(LIGHT_INTENSITY==100)
-			LIGHT_INTENSITY=40;
+{		if(Time::TIME%200==0&&Time::TIME!=0)
+			LIGHT_INTENSITY+=10;
+		if(LIGHT_INTENSITY==700&&Time::TIME!=0)
+			LIGHT_INTENSITY=0;
 }
+const short Light_sensor::light_out_ret(){return LIGHT_INTENSITY;}
+
 void Light_sensor::view()
 {
 		cout<<"LIGHT: "<<LIGHT_INTENSITY<<endl;
@@ -100,13 +102,15 @@ void Sensor_move::f()
 {
 	if(Time::TIME%1200==0)
 		MOVE=true;
-	else if(Time::TIME%1600==0)
+	else if(Time::TIME%100==0)
 		MOVE=false;
 }
 void Sensor_move::view()
 {	
 	if(MOVE==true)
 		cout<<"Wykryto ruch!"<<endl;
+	else 
+		cout<<"NIE wykryto ruchu!"<<endl;
 }
 Sensor_move::~Sensor_move()
 {}

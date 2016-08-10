@@ -3,45 +3,47 @@
 #include <iostream>
 #include "sensors.h"
 
+class Abstract
+{	//public:
+		virtual void view()=0;
+};
 
-class Air_conditioning : virtual public Power 
+class Air_conditioning : virtual public Abstract 
 {
+	public:
 		float TEMP_AIR_COND;
-	public:
-		Air_conditioning(float tac=19, float Vv=0, float Cc=0);
+		Air_conditioning(float tac=19);
 		virtual ~Air_conditioning();
-		void f_air_cond(float TEMP_MANUAL);
-		void view_air_cond();
+		void view() override;
 };
 
-class Warming_system : virtual public Power
+class Warming_system : virtual public Abstract
 {
-		float TEMP_WARMING_SYS;
 	public:
-		Warming_system(float tws=20, float Vv=0, float Cc=0);
+		float TEMP_WARMING_SYS;
+		Warming_system(float tws=20);
 		virtual ~Warming_system();
-		void f_temp_warming_sys(float TEMP_MANUAL);
-		void view_temp_warming_sys();
+		void view() override;
 };
 
-class Windows : virtual public Power
+class Windows : virtual public Power, virtual public Abstract
 {
 		bool POSITION;
 	public:
 		Windows(bool p=0, float Vv=0, float Cc=0);
-		~Windows();
-		void f_windows(bool WINDOWS_MANUAL=false);
-		void view_windows();
+		virtual ~Windows();
+		void f_d(const bool *onoff);
+		void view() override;
 };
 
-class Light_inside : virtual public Power
+class Light_inside : virtual public Power, virtual public Abstract
 {
-		unsigned short LIGHT_INSIDE_INTENSITY;
 	public:
+		unsigned short LIGHT_INSIDE_INTENSITY;
 		Light_inside(unsigned short L_IN=0, float Vv=0, float Cc=0);
 		virtual ~Light_inside();
-		void f_light_inside(unsigned short LIGHT_MANUAL);
-		void view_light_inside();
+		void f_light_inside(const unsigned short LIGHT_MANUAL);
+		void view() override;
 };
 /*
 class Notifications
