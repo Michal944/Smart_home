@@ -9,7 +9,7 @@ class Control_system
 {
 		bool SEASON;
 		char *choose_locacl;
-		bool *pick;
+		bool pick;
 	public:
 //SENSORS
 		Time 			  LOCAL_HOST_TIME;
@@ -34,7 +34,7 @@ class Control_system
 };
 
 Control_system::Control_system()
-{
+{	try{
 		TERMO_SENSOR_MODEL_XXX=new Termometr(20,12,0.2);
 		PHOTORESISTOR_MODEL_XXX=new Light_sensor(50,12,0.4);
 		WIND_SENSOR_MODEL_XXX=new Anemometr(5,12,0.3);
@@ -43,6 +43,11 @@ Control_system::Control_system()
 
 		ENGINES_WINDOWS=new Windows;
 		SYSTEM_LIGHT_INSIDE=new Light_inside;
+	   }
+	catch(std::bad_alloc &p)
+	{
+			cout<<p.what()<<endl;
+	}
 
 }
 
@@ -64,7 +69,9 @@ Control_system::~Control_system()
 
 }
 void Control_system::f_season()
-{		choose_locacl=new char[1];
+{	try
+	{
+		choose_locacl=new char[1];
 		cout<<"Choose season:"<<endl<<"WINTER[y]/SUMMER[n]:  ";
 		cin>>choose_locacl;
 			if(choose_locacl[0]=='y'||choose_locacl[0]=='Y'){
@@ -79,6 +86,11 @@ void Control_system::f_season()
 				cout<<"Warming system is: OFF"<<endl<<
 				"Air_conditioning is: ON"<<endl;
 			}
+	}
+	catch(std::bad_alloc &p)
+	{
+			cout<<p.what()<<endl;
+	}
 		delete choose_locacl;
 		sleep(5);
 }
@@ -103,11 +115,11 @@ void Control_system::sensors_start()
 
 void Control_system::device_start()
 {
-	pick=new bool;
+	
 		if(TERMO_SENSOR_MODEL_XXX->TEMP>25&&
 		WETNESS_SENSOR_MODEL_XXX->WETNESS<65)
-			*pick=true;
-		else *pick=false;
+			pick=true;
+		else pick=false;
 	ENGINES_WINDOWS->f_d(pick);
 	
 	(PHOTORESISTOR_MODEL_XXX->light_out_ret()>80)?
@@ -138,6 +150,8 @@ void Control_system::device_start()
 int main()
 {
 		Control_system SYSTEM;
+	try
+	{
 		SYSTEM.f_season();
 		while(true)
 		{
@@ -145,14 +159,13 @@ int main()
 			SYSTEM.device_start();
 			sleep(1);
 		}
+	}
+	catch(...)
+		{
+			cout<<"bug"<<endl;
+		}
+
+
 
 		return 0;
 }
-
-
-
-
-
-
-
-

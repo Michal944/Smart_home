@@ -39,7 +39,7 @@ Windows::Windows(bool p, float Vv, float Cc)
 		, Power(Vv,Cc)
 {}
 Windows::~Windows(){}
-void Windows::f_d(const bool *onoff){POSITION=*onoff;}
+void Windows::f_d(const bool onoff){POSITION=onoff;}
 void Windows::view()
 {	
 	if(POSITION==true)

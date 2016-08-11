@@ -39,11 +39,18 @@ Termometr::Termometr(float T, float Vv, float Cc)
 		 	, Power(Vv, Cc)
 			{}
 
-void Termometr::f()
-{	if(Time::TIME%30==0)
+void Termometr::f()		
+{	try{
+	if(Time::TIME%30==0)
 		TEMP+=0.1;
 	else if(TEMP==32)
 		TEMP=20;
+	if(TEMP>50||TEMP<(-20))throw(TEMP);
+	}
+	catch(float){
+	cout<<"COLD!"<<endl;
+	abort();
+	}
 
 }
 void Termometr::view()
@@ -59,10 +66,15 @@ Light_sensor::Light_sensor(short L, float Vv, float Cc)
 			, Power(Vv,Cc)
 {}
 void Light_sensor::f()
-{		if(Time::TIME%200==0&&Time::TIME!=0)
+{		try{
+		if(Time::TIME%200==0&&Time::TIME!=0)
 			LIGHT_INTENSITY+=10;
 		if(LIGHT_INTENSITY==700&&Time::TIME!=0)
 			LIGHT_INTENSITY=0;
+		if(LIGHT_INTENSITY>100) throw(1);
+		}
+		catch(int){cout<<"LIGHT_INTENSITY bad!"; abort();}
+		
 }
 const short Light_sensor::light_out_ret(){return LIGHT_INTENSITY;}
 
@@ -80,10 +92,14 @@ Anemometr::Anemometr(float W, float Vv, float Cc)
 {}
 void Anemometr::f()
 {
+	try{
 	if(Time::TIME%3==0)
 		WIND_SPEED+=0.3;
 	else
 		WIND_SPEED-=0.1;
+	if(WIND_SPEED>80) throw(WIND_SPEED);
+	}
+	catch(float w){cout<<"WIND SPEED B A D!"<<endl; abort();}
 }
 
 void Anemometr::view()

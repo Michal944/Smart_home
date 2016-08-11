@@ -32,7 +32,7 @@ class Windows : virtual public Power, virtual public Abstract
 	public:
 		Windows(bool p=0, float Vv=0, float Cc=0);
 		virtual ~Windows();
-		void f_d(const bool *onoff);
+		void f_d(const bool onoff);
 		void view() override;
 };
 
